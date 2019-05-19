@@ -1,5 +1,9 @@
 const canvasSketch = require('canvas-sketch');
-const { lerp, random } = require('canvas-sketch-util/math');
+const { lerp } = require('canvas-sketch-util/math');
+const random = require('canvas-sketch-util/random');
+
+// set a deterministic seed
+random.setSeed(400);
 
 // lerp is just a d3 scaleLinear with a domain of ([0, 1])
 
@@ -25,16 +29,18 @@ const sketch = () => {
   };
 
   const margin = 0.2;
-  const points = createGrid().filter(
-    () => Math.random() < 0.5
-  );
+  const points = createGrid()
+    .filter(
+      () => random.value() < 0.5
+    );
 
   // draw function
   return ({context, width, height}) => {
     context.fillStyle = 'white';
     context.fillRect(0, 0, width, height);
 
-    points.forEach(
+    points
+    .forEach(
       ([u, v]) => {
         const x = lerp(width * margin, width * (1 - margin), u);
         const y = lerp(height * margin, height * (1 - margin), v);
@@ -45,8 +51,7 @@ const sketch = () => {
         context.lineWidth = 3;
         context.stroke();
       }
-    )
-
+    );
   };
 };
 
