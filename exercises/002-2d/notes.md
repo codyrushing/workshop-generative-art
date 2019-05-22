@@ -3,3 +3,5 @@ Sometimes starting with a blank canvas is a difficult jumping off point.  Buildi
 `canvas-sketch-utils` has a bunch of util functions.
 * random allows you to make deterministic random #s.  Also gaussian randoms and other pseudo-randoms.
 * math has a bunch of match stuff
+
+Noise functions allow you to produce values from coordinates, in which nearby values are similar.  So it's spacially aware, helps make natural, undulating systems.
