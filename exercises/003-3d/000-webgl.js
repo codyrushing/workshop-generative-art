@@ -6,6 +6,7 @@ global.THREE = require('three');
 // Include any additional ThreeJS examples below
 require('three/examples/js/controls/OrbitControls');
 
+// cavnas-sketch options
 const settings = {
   // Make the loop animated
   animate: true,
@@ -27,9 +28,10 @@ const sketch = ({ context }) => {
   // Setup a camera
   const camera = new THREE.PerspectiveCamera(45, 1, 0.01, 100);
   camera.position.set(2, 2, -4);
+  // look at center of the scene
   camera.lookAt(new THREE.Vector3());
 
-  // Setup camera controller
+  // Setup camera controller (pan/zoom via mouse)
   const controls = new THREE.OrbitControls(camera);
 
   // Setup your scene

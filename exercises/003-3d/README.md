@@ -16,4 +16,7 @@ npx canvas-sketch {filename}.js --no-install --open --new --template=three
 
 * __Camera__ - a virtual eyepiece or way of looking at the world.  It can have all sorts of different qualities
   * __Perspective camera__ - has a traditional "vanishing point", in which objects that are more in the direction of the vanishing point appear to distort and shrink away.  
-  * __Orthographic camera__ - objects further away don't distor and shrink.  It's sort of depth-less.  Great for 2.5d type of look.
+  * __Orthographic camera__ - objects further away don't distort and shrink.  It's sort of depth-less.  Great for 2.5d type of look.
+
+* `render.setClearColor()` sets the background color. It's kind of independent of light.
+* Without light,
