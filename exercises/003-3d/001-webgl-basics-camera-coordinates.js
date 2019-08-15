@@ -32,6 +32,7 @@ const sketch = ({ context }) => {
   // Setup your scene
   const scene = new THREE.Scene();
 
+  // create 1x1x1 cube geometry
   const geometry = new THREE.BoxGeometry(1, 1, 1);
 
   for(let i=0; i<10; i++){
@@ -47,7 +48,7 @@ const sketch = ({ context }) => {
       random.range(-1, 1),
       random.range(-1, 1)
     );
-    // scale x, y, and z coordinates by a scalar
+    // scale x, y, and z coordinates by a scalar (in this case, shrinking)
     mesh.scale.multiplyScalar(0.1);
     scene.add(mesh);
   }
@@ -65,7 +66,7 @@ const sketch = ({ context }) => {
       const aspect = viewportWidth / viewportHeight;
 
       // Ortho zoom
-      const zoom = 1.0;
+      const zoom = 1;
 
       // Bounds
       camera.left = -zoom * aspect;
