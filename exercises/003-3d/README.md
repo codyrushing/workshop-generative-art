@@ -20,3 +20,12 @@ npx canvas-sketch {filename}.js --no-install --open --new --template=three
 
 * `render.setClearColor()` sets the background color. It's kind of independent of light.
 * Without light,
+
+## 3D coordinates
+* In 2D, top left of the screen is 0,0 and bottom right is width, height
+* In 3D, it doesn't really work like that.  You have to define an origin 0,0 which is the center of the world, not necessarily the center of the screen.  All positions are defined as relative to that.
+
+## Animation export notes
+* Add `duration` and `fps` to canvas sketch settings (see 003-animation).
+* Run canvas-sketch with `--output=tmp/` to specify a temp directory.
+* Click on canvas element in browser, and press cmd+shift+s to save all frames.

@@ -1,5 +1,6 @@
 const canvasSketch = require('canvas-sketch');
 const random = require('canvas-sketch-util/random');
+const palettes = require('nice-color-palettes');
 
 // Ensure ThreeJS is in global scope for the 'examples/'
 global.THREE = require('three');
@@ -24,7 +25,7 @@ const sketch = ({ context }) => {
   });
 
   // WebGL background color
-  renderer.setClearColor('hsl(0, 0%, 85%)', 1);
+  renderer.setClearColor('hsl(0, 0%, 50%)', 1);
 
   // Setup a camera
   const camera = new THREE.OrthographicCamera();
@@ -32,14 +33,16 @@ const sketch = ({ context }) => {
   // Setup your scene
   const scene = new THREE.Scene();
 
+  const palette = random.pick(palettes);
+
   // create 1x1x1 cube geometry
   const geometry = new THREE.BoxGeometry(1, 1, 1);
 
-  for(let i=0; i<1; i++){
+  for(let i=0; i<30; i++){
     let mesh = new THREE.Mesh(
       geometry,
-      new THREE.MeshBasicMaterial({
-        color: 'red'
+      new THREE.MeshStandardMaterial({
+        color: random.pick(palette)
       })
     );
     // set random position
@@ -48,10 +51,28 @@ const sketch = ({ context }) => {
       random.range(-1, 1),
       random.range(-1, 1)
     );
+    mesh.scale.set(
+      random.gaussian(1, 0.5),
+      random.gaussian(1, 0.5),
+      random.gaussian(1, 0.5)
+    );
+    mesh.rotation.z = random.gaussian(0, Math.PI*0.05);
     // scale x, y, and z coordinates by a scalar (in this case, shrinking)
-    mesh.scale.multiplyScalar(0.1);
+    mesh.scale.multiplyScalar(0.5);
     scene.add(mesh);
   }
+
+  // add direction light white that makes some cool shadows
+  const light = new THREE.DirectionalLight('white', 1);
+  light.position.set(
+    -2,
+    4,
+    2
+  );
+  scene.add(light);
+
+  // add ambient light - soft gray
+  scene.add(new THREE.AmbientLight('hsl(0,0,90%)'));
 
   // draw each frame
   return {
