@@ -1,6 +1,7 @@
 const canvasSketch = require('canvas-sketch');
 const random = require('canvas-sketch-util/random');
 const palettes = require('nice-color-palettes');
+const eases = require('eases');
 
 // Ensure ThreeJS is in global scope for the 'examples/'
 global.THREE = require('three');
@@ -116,7 +117,8 @@ const sketch = ({ context }) => {
     render ({ playhead }) {
       // playhead is value between 0 and 1 of the duration of your "video"
       // this indicates one full rotation during the playhead
-      scene.rotation.z = playhead * Math.PI * 2;
+      const t = Math.sin( playhead * Math.PI);
+      scene.rotation.z = eases.expoInOut(t);
       renderer.render(scene, camera);
     },
     // Dispose of events & renderer for cleaner hot-reloading

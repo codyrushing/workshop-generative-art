@@ -29,3 +29,6 @@ npx canvas-sketch {filename}.js --no-install --open --new --template=three
 * Add `duration` and `fps` to canvas sketch settings (see 003-animation).
 * Run canvas-sketch with `--output=tmp/` to specify a temp directory.
 * Click on canvas element in browser, and press cmd+shift+s to save all frames.
+* Make sure `duration` is set in the settings, otherwise it will endlessly make frames.
+* `canvas-sketch-mp4 tmp/` - uses ffmpeg to build an mp4 from frames
+* OR, go to https://giftool.surge.sh/, which will allow you to upload frames and get an mp4
