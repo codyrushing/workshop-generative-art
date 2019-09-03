@@ -32,3 +32,6 @@ npx canvas-sketch {filename}.js --no-install --open --new --template=three
 * Make sure `duration` is set in the settings, otherwise it will endlessly make frames.
 * `canvas-sketch-mp4 tmp/` - uses ffmpeg to build an mp4 from frames
 * OR, go to https://giftool.surge.sh/, which will allow you to upload frames and get an mp4
+
+* `eases` is an npm package with a bunch of easing functions
+* `bezier-easing` - an npm package to make your own easing functions with cubic bezier values.  Eg
