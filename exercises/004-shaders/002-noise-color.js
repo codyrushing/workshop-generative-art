@@ -17,32 +17,33 @@ const frag = glsl(/* glsl */`
   // vUv is the x,y position of the current pixel
   varying vec2 vUv;
 
+  #pragma glslify: noise = require('glsl-noise/simplex/3d');
+  #pragma glslify: hsl2rgb = require('glsl-hsl2rgb');
   void main () {
-    vec3 colorA = vec3(1.0, 0.0, 0.0);
-    vec3 colorB = vec3(0.0, 0.0, 1.0);
+    // vec3 colorA = vec3(1.0, 0.0, 0.0);
+    // vec3 colorB = vec3(0.0, 0.0, 1.0);
 
-    // center of the screen is 0.5, 0.5
-    // so center a vector from our current pixel to the center of the screen
     vec2 center = vUv - 0.5;
-    // aspect ratio was passed in via js below, use that to scale our center vector
     center.x *= aspect;
     float dist = length(center);
-
+    
     // mix() is like lerp(), and it can interpolate between vectors. the last argument is a value between 0 and 1 to interpolate to
-    vec3 color = mix(colorA, colorB, vUv.x);
+    // vec3 color = mix(colorA, colorB, vUv.x);
     // vec3 color = mix(colorA, colorB, vUv.x * (cos(time) + 0.5) + vUv.y * (cos(time) + 0.5)  );
 
-    // set any pixels outside of our center circle to be 0 alpha
-    // you can also use aspect to play with the scale of the circle boundary 
-    /*
-    float alpha = dist > 0.25 * aspect
-      ? 0.0
-      : 1.0;    
-    */
-    // this creates the fuzzy border around the circle. pixels that are between 0.495, and 0.505 will receive an opacity between 0 and 1
-    // those greater will receive 0, and those less will receive 1
-    // a larger range between the min and max values makes a fuzzier alpha gradient
-    float alpha = smoothstep(0.505, 0.495, dist * aspect);
+    // returns a floating point from -1 to 1
+    // pass it a vector scaled to our aspect ratio to prevent distortions at non-square screen sizes
+    // and pass it time
+    float n = noise(vec3(center, time));
+
+    vec3 color = hsl2rgb(
+        // establish a base hue (0.6)
+        // the scale of n corresponds to the diversity of hue caused by noise
+        0.6 + n * 0.2, 
+        0.5, 
+        0.5
+    );
+    float alpha = smoothstep(0.302, 0.298, dist);
 
     gl_FragColor = vec4(color, alpha);
   }

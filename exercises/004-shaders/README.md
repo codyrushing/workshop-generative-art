@@ -10,3 +10,28 @@
 ```
 canvas-sketch filename.js --new --no-install --template=shader
 ```
+
+## glsl
+* `mix()` - interpolating between vectors.  First two arguments are vectors to interpolate between, last arg is a float between 0 
+and 1
+```
+// get an interpolated color between colorA and colorB based on vUv.x
+vec3 color = mix(colorA, colorB, vUv.x);
+```
+* vector math
+    * shorthands
+    ```glsl
+    someVec2 - vec2(0.5, 0.5);
+    someVec2 - vec2(0.5);
+    someVec2 - 0.5;
+    ```
+    These are all equivalent.
+    * `length(someVec2)` - gives the length of a vector
+* `step(threshold, value)` - a step function returns 0 if `value` is greater than `threshold` and 1.0 if less.
+* `smoothstep(min, max, value)` - this returns an interpolated value between 0 and 1, based on where `value` lies between `min` and `max`.  it's like a d3 linear scale that is clamped, so it will always return a value that is not less than `min` and not greater than `max`
+
+* You can add any fragment shader to a Three.js mesh using the `fragmentShader` option in the material constructor
+* `--hot` canvas-sketch CLI option for hot reloading
+
+### Importing modules into GLSL
+* Some GLSL utilities are published on npm.  With the magic of `glslify`, we can "import" modules into our shader code, even though this isn't supported in glsl, glslify provides some syntactical tools to do so
